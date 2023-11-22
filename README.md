@@ -1,12 +1,5 @@
-# C/C++标准库扩展
+# Rake 模板项目
 
-- 名字空间参考：https://cloud.tencent.com/developer/article/1134920
-
-
-# DB
-- FsDb
-  + 不支持多进程
-- RedisDb
-  + 可能支持多进程
-
+Rake 参见: https://github.com/dayn9t/rake.
+这是 Rake 项目的一个模板.
 
