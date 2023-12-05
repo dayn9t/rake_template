@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	auto r1 = fun1(1, 1);
+	auto r1 = add(1, 1);
 	cout << r1 << endl;
 	return 0;
 }

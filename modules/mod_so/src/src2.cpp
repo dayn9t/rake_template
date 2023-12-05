@@ -4,9 +4,9 @@
 namespace rat
 {
     // 曝露函数的实现
-    int fun2(int a, int b)
+    int multiply(int a, int b)
     {
-        return a + b;
+        return a * b;
     }
 
 }

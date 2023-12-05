@@ -4,6 +4,6 @@
 
 TEST(TypeName, mod_a_fun1)
 {
-    auto r = fun2(1, 1);
+    auto r = multiply(1, 1);
     GTEST_ASSERT_EQ(r, 2);
 }

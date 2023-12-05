@@ -7,5 +7,5 @@
 namespace rat
 {
     /// 曝露函数定义
-    int fun1(int a, int b);
+    int add(int a, int b);
 }
