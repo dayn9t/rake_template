@@ -6,13 +6,13 @@
 
 namespace hen
 {
-    inline Network::Network()
+    Network::Network()
     {
         auto r = NET_DVR_Init();
         cr_ensure(r == NET_DVR_NOERROR);
     }
 
-    inline Network::~Network()
+    Network::~Network()
     {
         auto r = NET_DVR_Cleanup();
         cr_ensure(r == NET_DVR_NOERROR);
