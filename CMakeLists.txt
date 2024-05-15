@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(rat)
+project(hen)
 
 add_definitions(-DBOOST_ALL_DYN_LINK)
 add_definitions(-DBOOST_STACKTRACE_USE_BACKTRACE)

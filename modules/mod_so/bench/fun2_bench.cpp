@@ -1,4 +1,4 @@
-#include <rat/mod_so/header2.hpp>
+#include <hen/mod_so/header2.hpp>
 #include "bench.hpp"
 
 int fun2_bench(int argc, const char *argv[])

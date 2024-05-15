@@ -4,7 +4,7 @@
 
 #include "basic.hpp"
 
-namespace rat
+namespace hen
 {
     /// 曝露函数定义
     int multiply(int a, int b);

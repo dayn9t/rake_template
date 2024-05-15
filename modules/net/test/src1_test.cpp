@@ -1,8 +1,8 @@
 
 #include "test.hpp"
-#include <rat/mod_a/header1.hpp>
+#include <hen/net/header1.hpp>
 
-TEST(TypeName, mod_a_fun1)
+TEST(TypeName, net_fun1)
 {
     auto r = add(1, 1);
     GTEST_ASSERT_EQ(r, 2);

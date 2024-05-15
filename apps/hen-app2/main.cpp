@@ -1,9 +1,9 @@
 
 #include <iostream>
-#include <rat/mod_a/header1.hpp>
-#include <rat/mod_so/header2.hpp>
+#include <hen/net/header1.hpp>
+#include <hen/mod_so/header2.hpp>
 
-using namespace rat;
+using namespace hen;
 using namespace std;
 
 int main()

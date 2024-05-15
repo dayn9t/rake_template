@@ -2,9 +2,9 @@
 
 /// 本模块曝露出的函数/类型等内容
 
-#include <rat/mod_a/types.hpp>
+#include <hen/net/types.hpp>
 
-namespace rat
+namespace hen
 {
     /// 曝露函数定义
     int add(int a, int b);

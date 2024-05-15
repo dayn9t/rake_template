@@ -3,8 +3,8 @@
 /// 本模块通用单元测试功能
 
 #include <gtest/gtest.h>
-#include <rat/mod_a/types.hpp>
+#include <hen/net/types.hpp>
 
 using namespace std;
-using namespace rat;
+using namespace hen;
 

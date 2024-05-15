@@ -1,7 +1,7 @@
 
-#include <rat/mod_a/header1.hpp>
+#include <hen/net/header1.hpp>
 
-namespace rat
+namespace hen
 {
     // 曝露函数的实现
     int add(int a, int b)
