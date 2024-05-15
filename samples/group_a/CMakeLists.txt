@@ -1,1 +1,1 @@
-cx_add_samples(group_a net)
+cx_add_samples(group_a hen_net)

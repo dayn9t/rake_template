@@ -1,2 +1,2 @@
 
-cx_add_app(hen-app1 net)
+cx_add_app(app1 hen_net)

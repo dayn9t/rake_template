@@ -6,6 +6,12 @@
 
 namespace hen
 {
-    /// 曝露函数定义
-    int add(int a, int b);
+    class Network
+    {
+    public :
+        Network();
+        ~Network();
+    };
+
+
 }
