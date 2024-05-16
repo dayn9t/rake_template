@@ -6,11 +6,17 @@ add_definitions(-DBOOST_STACKTRACE_USE_BACKTRACE)
 
 link_libraries(cr_core)
 
+find_package(fmt)
+link_libraries(fmt::fmt)
+
 find_package(Boost COMPONENTS program_options regex log log_setup filesystem thread REQUIRED)
 find_package(Threads)
-
 link_libraries(backtrace dl)
 
+# 海康库路径设置，好像必须在这里设置， 在模块里设置无效
+set(PATH_HIK /home/jiang/ws/hik/net)
+link_directories(${PATH_HIK}/lib)
+include_directories(${PATH_HIK}/include)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 

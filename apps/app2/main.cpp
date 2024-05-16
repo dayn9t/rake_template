@@ -1,6 +1,6 @@
 
 #include <iostream>
-#include <hen/net/header1.hpp>
+#include <hen/net/session.hpp>
 #include <hen/mod_so/header2.hpp>
 
 using namespace hen;

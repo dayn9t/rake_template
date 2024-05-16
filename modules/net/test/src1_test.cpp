@@ -1,6 +1,6 @@
 
 #include "test.hpp"
-#include <hen/net/header1.hpp>
+#include <hen/net/session.hpp>
 
 TEST(TypeName, net_fun1)
 {
