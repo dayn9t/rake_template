@@ -1,11 +1,11 @@
 #include <iostream>
+#include <thread>
 #include <fmt/format.h>
 #include <hen/net/session.hpp>
 #include <hen/net/playback.hpp>
 
 using namespace hen;
 using namespace std;
-
 
 int main()
 {
@@ -21,17 +21,19 @@ int main()
     fmt::println("Device serial: {}", d.serial_number);
     fmt::println("  disk number: {}", d.disk_num);
 
-    const DatetimeMember start = {2024, 5, 16, 22, 0, 0};
-    const DatetimeMember end = {2024, 5, 16, 22, 1, 0};
+    const DatetimeMember start = {2024, 5, 17, 17, 7, 0};
+    const DatetimeMember end = {2024, 5, 17, 17, 9, 0};
     const PlaybackInfo info = {1, 0, 1, start, end}; // stream 无影响
     Playback playback(session.id(), info);
 
+    playback.set_audio_path("/tmp/audio.raw");
     playback.start();
 
-    std::cout << "按 ESC 结束..." << std::endl;
-
-    for (auto key = 0; key != 17; key = std::cin.get())
+    while(!playback.done())
     {
+        std::this_thread::sleep_for(1s);
+        auto len = playback.audio_size();
+        fmt::println("Audio len: {}", len);
     }
 
     return 0;
