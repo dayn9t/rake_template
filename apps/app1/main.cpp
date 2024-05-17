@@ -1,4 +1,3 @@
-#include <iostream>
 #include <thread>
 #include <fmt/format.h>
 #include <hen/net/session.hpp>
