@@ -72,18 +72,16 @@ void show_parts(const boost::url& url)
 
 int main(int argc, char* argv[])
 {
-    if (argc != 2)
+    if (argc != 3)
     {
-        fmt::println("Usage:\n\then-download <url>");
+        fmt::println("Usage:\n\then-download <URL> <DST_FILE>");
     }
     boost::url url = boost::url(argv[1]);
+    string dst_file = argv[2];
     show_parts(url);
-
     auto record_info = parse_record_info(url);
 
-
     NetSDK sdk;
-
     auto version = sdk.version();
     fmt::println("Version: {}", version_string(version));
 
@@ -96,14 +94,14 @@ int main(int argc, char* argv[])
 
     const PlaybackInfo info = {
         .channel = record_info.channel,
-        .stream = record_info.stream,    // stream 无影响
+        .stream = record_info.stream, // stream 无影响
         .audio_type = 1,
         .start = record_info.start,
         .end = record_info.end,
     };
     Playback playback(session.id(), info);
 
-    playback.set_audio_path("/tmp/audio.raw");
+    playback.set_audio_path(dst_file);
     playback.start();
 
     while (!playback.done())
