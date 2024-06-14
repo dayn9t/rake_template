@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(hen)
 
-add_definitions(-DBOOST_ALL_DYN_LINK)
+#add_definitions(-DBOOST_ALL_DYN_LINK)
+set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DBOOST_STACKTRACE_USE_BACKTRACE)
 
 link_libraries(cr_core)
@@ -9,7 +10,8 @@ link_libraries(cr_core)
 find_package(fmt)
 link_libraries(fmt::fmt)
 
-find_package(Boost COMPONENTS program_options regex log log_setup filesystem thread REQUIRED)
+#find_package(Boost COMPONENTS url log log_setup filesystem thread REQUIRED)
+find_package(Boost COMPONENTS url REQUIRED)
 find_package(Threads)
 link_libraries(backtrace dl)
 
