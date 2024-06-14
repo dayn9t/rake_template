@@ -40,7 +40,6 @@ struct RecordInfo
 RecordInfo parse_record_info(const boost::url& url)
 {
     int n = 0;
-    auto p = url.path().c_str();
     cr_ensure(sscanf(url.path().c_str(), "/record/%d", &n) == 1);
     auto params = get_params(url);
 
@@ -69,7 +68,7 @@ void show_parts(const boost::url& url)
     fmt::println("Fragment: {}", url.fragment());
 }
 
-// "hikn://admin:pass@10.1.0.21:8000/record/101?start_time=2024-05-17T17:07:00&end_time=2024-05-17T17:09:00";
+// "hikn://admin:howell1409@10.1.0.21:8000/record/101?start_time=2024-06-14T17:07:00&end_time=2024-06-14T17:09:00";
 
 int main(int argc, char* argv[])
 {
@@ -90,14 +89,18 @@ int main(int argc, char* argv[])
 
     sdk.set_log(3, "/tmp/hen-app.log");
 
-    Session session("10.1.0.21", 8000, "admin", "howell1409");
+    Session session(url.host(), url.port_number(), url.user(), url.password());
     auto d = session.device_info();
     fmt::println("Device serial: {}", d.serial_number);
     fmt::println("  disk number: {}", d.disk_num);
 
-    const DatetimeMember start = {2024, 5, 17, 17, 7, 0};
-    const DatetimeMember end = {2024, 5, 17, 17, 9, 0};
-    const PlaybackInfo info = {1, 0, 1, start, end}; // stream 无影响
+    const PlaybackInfo info = {
+        .channel = record_info.channel,
+        .stream = record_info.stream,    // stream 无影响
+        .audio_type = 1,
+        .start = record_info.start,
+        .end = record_info.end,
+    };
     Playback playback(session.id(), info);
 
     playback.set_audio_path("/tmp/audio.raw");

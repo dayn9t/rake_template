@@ -85,7 +85,7 @@ namespace hen
 
     Playback::Playback(int session, PlaybackInfo info)
     {
-        auto begin = to_hik(info.begin);
+        auto begin = to_hik(info.start);
         auto end = to_hik(info.end);
 #if 1
         NET_DVR_VOD_PARA param = {};

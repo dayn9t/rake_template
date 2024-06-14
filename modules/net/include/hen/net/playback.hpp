@@ -13,7 +13,7 @@ namespace hen
         /// 音频回放类型：0-不回放音频文件，1-只回放音频，该功能需要设备支持
         int audio_type;
         /// 开始时间
-        DatetimeMember begin;
+        DatetimeMember start;
         /// 结束时间
         DatetimeMember end;
     };
