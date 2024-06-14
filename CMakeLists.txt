@@ -17,7 +17,7 @@ link_libraries(backtrace dl)
 
 # 海康库路径设置，好像必须在这里设置， 在模块里设置无效
 set(PATH_HIK /home/jiang/ws/hik/net)
-link_directories(${PATH_HIK}/lib2)
+link_directories(${PATH_HIK}/lib)
 include_directories(${PATH_HIK}/include)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
