@@ -74,7 +74,8 @@ int main(int argc, char* argv[])
 {
     if (argc != 3)
     {
-        fmt::println("Usage:\n\then-download <URL> <DST_FILE>");
+        fmt::println("Usage:\n\then-download <URL> <DST_FILE>\n");
+        return 2;
     }
     boost::url url = boost::url(argv[1]);
     string dst_file = argv[2];
