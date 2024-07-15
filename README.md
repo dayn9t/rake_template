@@ -24,4 +24,4 @@ sed -i 's/hennet/<MOD_A>/g' `rg -l hennet`
 ## 部署
 
 - 海康库可以系统库
-- 
+- "sudo apt install libssl-dev libglib2.0-dev"
