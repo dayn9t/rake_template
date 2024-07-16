@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
-src_url="hikn://admin:howell1409@192.168.21.202:8000/record/201?start_time=2024-07-12T15:55:00&end_time=2024-07-12T16:05:00";
-dst_file=~/1/a.raw
+start=2024-07-15T16:33:00
+end=2024-07-15T16:43:00
+
+#start=2024-07-15T14:00:00
+#end=2024-07-15T14:10:00
+
+host=192.168.21.202
+
+src_url="hikn://admin:howell1409@$host:8000/record/200?start_time=$start&end_time=$end";
+dst_file=a.raw
 
 arch=$(uname -m)
 

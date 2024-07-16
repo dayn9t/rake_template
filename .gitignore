@@ -4,3 +4,5 @@ data/
 build/
 cmake
 cmake-build-*
+*.mp3
+*.pcm

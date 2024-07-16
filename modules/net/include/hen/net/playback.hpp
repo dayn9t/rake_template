@@ -4,6 +4,8 @@
 
 namespace hen
 {
+    class Session;
+
     struct PlaybackInfo
     {
         /// 通道号
@@ -25,7 +27,7 @@ namespace hen
         using OnAudio = std::function<void(DatetimeMember time, std::byte* buffer, size_t size)>;
 
     public:
-        Playback(int session, PlaybackInfo info);
+        Playback(Session& session, PlaybackInfo info);
         ~Playback();
 
     public:

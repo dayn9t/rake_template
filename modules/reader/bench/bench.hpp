@@ -2,8 +2,8 @@
 
 /// 性能测试通用功能
 
-#include <hen/mod_so/basic.hpp>
+#include <hen/reader/downloader.h>
 #include <iostream>
 
 using namespace std;
-using namespace hen;
+//using namespace hen;

@@ -4,6 +4,7 @@
 #include <fmt/core.h>
 
 #include "hik_util.hpp"
+#include "hen/net/session.hpp"
 
 
 namespace hen
@@ -83,20 +84,28 @@ namespace hen
         }
     }
 
-    Playback::Playback(int session, PlaybackInfo info)
+    Playback::Playback(Session& session, PlaybackInfo info)
     {
         auto begin = to_hik(info.start);
         auto end = to_hik(info.end);
 #if 1
+
+        fmt::println("start_digit_channel: {}", session.start_digit_channel());
+
         NET_DVR_VOD_PARA param = {};
         param.struBeginTime = begin;
         param.struEndTime = end;
-        param.struIDInfo.dwChannel = info.channel;
+        param.struIDInfo.dwChannel = info.channel + session.start_digit_channel() - 1;
         param.byStreamType = info.stream;
         param.byAudioFile = 1;
         param.hWnd = 0;
 
-        m_handle = NET_DVR_PlayBackByTime_V40(session, &param);
+        m_handle = NET_DVR_PlayBackByTime_V40(session.id(), &param);
+
+        int c = param.struIDInfo.dwChannel;
+        fmt::println("Play: session={} channel={} stream={} handle={}", session.id(), c, info.stream, m_handle);
+        auto err = NET_DVR_GetLastError();
+        fmt::println("err: {}", err);
         hik_ensure(m_handle >= 0);
 #else
         m_handle = NET_DVR_PlayBackByTime(session, info.channel, &begin, &end, 0);
@@ -185,6 +194,7 @@ namespace hen
         return d > cr::Seconds(5);
     }
 
+    // 使用该这个时间
     void Playback::append_audio(DatetimeMember time, std::byte* buffer, size_t size)
     {
         Lock lock(m_audio_mutex);

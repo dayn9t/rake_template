@@ -81,35 +81,43 @@ int main(int argc, char* argv[])
     show_parts(url);
     auto record_info = parse_record_info(url);
 
-    NetSDK sdk;
-    auto version = sdk.version();
-    fmt::println("Version: {}", version_string(version));
-
-    sdk.set_log(3, "/tmp/hen-app.log");
-
-    Session session(url.host(), url.port_number(), url.user(), url.password());
-    auto d = session.device_info();
-    fmt::println("Device serial: {}", d.serial_number);
-    fmt::println("  disk number: {}", d.disk_num);
-
-    const PlaybackInfo info = {
-        .channel = record_info.channel,
-        .stream = record_info.stream, // stream 无影响
-        .audio_type = 1,
-        .start = record_info.start,
-        .end = record_info.end,
-    };
-    Playback playback(session.id(), info);
-
-    playback.set_audio_path(dst_file);
-    playback.start();
-
-    while (!playback.done())
+    try
     {
-        std::this_thread::sleep_for(1s);
-        auto len = playback.audio_size();
-        fmt::println("Audio len: {}", len);
-    }
+        NetSDK sdk;
+        auto version = sdk.version();
+        fmt::println("Version: {}", version_string(version));
 
+        sdk.set_log(3, "/tmp/hen-app.log");
+
+        Session session(url.host(), url.port_number(), url.user(), url.password());
+        auto d = session.device_info();
+        fmt::println("Device serial: {}", d.serial_number);
+        fmt::println("  disk number: {}", d.disk_num);
+
+        const PlaybackInfo info = {
+            .channel = record_info.channel,
+            .stream = record_info.stream, // stream 无影响
+            .audio_type = 1,
+            .start = record_info.start,
+            .end = record_info.end,
+        };
+        Playback playback(session, info);
+
+        playback.set_audio_path(dst_file);
+
+
+        playback.start();
+
+        while (!playback.done())
+        {
+            std::this_thread::sleep_for(1s);
+            auto len = playback.audio_size();
+            fmt::println("Audio len: {}", len);
+        }
+    }
+    catch (CrError& e)
+    {
+        fmt::println("Error: {}",  cr::to_string(e));
+    }
     return 0;
 }

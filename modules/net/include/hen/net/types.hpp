@@ -16,6 +16,10 @@ namespace hen {
     {
         /// 序列号
         string serial_number;
+
+        /// 起始数字通道号，0表示无数字通道，比如DVR或IPC
+        int start_digit_channel;
+
         /// 模拟报警输入个数
         int alarm_in_port_num;
         /// 模拟报警输出个数

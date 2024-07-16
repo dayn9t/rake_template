@@ -34,6 +34,22 @@ namespace hen
     }
 
 
+    /// 转换设备信息类型
+    DeviceInfo convert(const NET_DVR_DEVICEINFO_V40& device_info)
+    {
+        auto& d = device_info.struDeviceV30;
+        DeviceInfo info = {
+            .serial_number = string((const char*)d.sSerialNumber),
+            .start_digit_channel = d.byStartDChan,
+            .disk_num = d.byDiskNum,
+            .main_proto = d.byMainProto,
+            .sub_proto = d.bySubProto,
+        };
+        return info;
+    }
+
+
+
     Session::Session(string_view host, int port, string_view user, string_view password)
     {
         NET_DVR_USER_LOGIN_INFO login_info = {};
@@ -47,11 +63,7 @@ namespace hen
         m_session_id = NET_DVR_Login_V40(&login_info, &device_info);
         hik_ensure(m_session_id >= 0);
 
-        auto& d = device_info.struDeviceV30;
-        m_device_info.serial_number = string((const char*)d.sSerialNumber);
-        m_device_info.disk_num = d.byDiskNum;
-        m_device_info.main_proto = d.byMainProto;
-        m_device_info.sub_proto = d.bySubProto;
+        m_device_info = convert(device_info);
     }
 
     Session::~Session()

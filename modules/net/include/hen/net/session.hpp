@@ -38,6 +38,10 @@ namespace hen
         [[nodiscard]]
         int id() const { return m_session_id; }
 
+        /// 获取起始数字通道号
+        [[nodiscard]]
+        int start_digit_channel() const { return m_device_info.start_digit_channel; }
+
     public:
     private:
         int m_session_id = 0;
