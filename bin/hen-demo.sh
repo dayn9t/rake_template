@@ -13,7 +13,8 @@ dst_file=a.raw
 
 arch=$(uname -m)
 
-exe=/opt/howell/iap/current/hen/bin/"$arch"/hen-download
+exe=/home/jiang/repo/hik/hen/build/bin/hen-download
+#exe=/opt/howell/iap/current/hen/bin/"$arch"/hen-download
 
 echo $exe $src_url $dst_file
 
