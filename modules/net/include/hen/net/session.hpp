@@ -40,7 +40,7 @@ namespace hen
 
         /// 获取起始数字通道号
         [[nodiscard]]
-        int start_digit_channel() const { return m_device_info.start_digit_channel; }
+        int start_digit_channel() const;
 
     public:
     private:

@@ -76,4 +76,16 @@ namespace hen
     {
         return m_device_info;
     }
+
+    int Session::start_digit_channel() const
+    {
+        // FIXME: Hik数值含义不一致
+        // - IPC, 通道号从1开始, start_digit_channel 返回 0
+        // - NVR, start_digit_channel 返回返回有效值
+        if( m_device_info.start_digit_channel == 0) // IPC 或者 DVR
+        {
+            return 1; // IPC 通道号从1开始
+        }
+        return m_device_info.start_digit_channel;
+    }
 }

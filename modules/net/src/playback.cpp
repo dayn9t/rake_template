@@ -1,4 +1,6 @@
 #include <cassert>
+#include <thread>
+#include <unistd.h>
 #include <hen/net/playback.hpp>
 
 #include <fmt/core.h>
@@ -96,16 +98,18 @@ namespace hen
         param.struBeginTime = begin;
         param.struEndTime = end;
         param.struIDInfo.dwChannel = info.channel + session.start_digit_channel() - 1;
-        param.byStreamType = info.stream;
-        param.byAudioFile = 1;
+        param.byStreamType = info.stream; // FIXME: IPC中无影响
+        param.byAudioFile = 1; // FIXME: IPC中无影响, 据说: 0-不回放音频文件，1-回放音频文件，需设备支持，启动音频回放后只回放音频文件
+
         param.hWnd = 0;
 
         m_handle = NET_DVR_PlayBackByTime_V40(session.id(), &param);
 
         int c = param.struIDInfo.dwChannel;
-        fmt::println("Play: session={} channel={} stream={} handle={}", session.id(), c, info.stream, m_handle);
+        fmt::println("  Play: session={} channel={} stream={} handle={}", session.id(), c, info.stream, m_handle);
         auto err = NET_DVR_GetLastError();
-        fmt::println("err: {}", err);
+        fmt::println("  err: {}", err);
+        sleep(1);
         hik_ensure(m_handle >= 0);
 #else
         m_handle = NET_DVR_PlayBackByTime(session, info.channel, &begin, &end, 0);

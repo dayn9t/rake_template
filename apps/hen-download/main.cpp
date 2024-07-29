@@ -45,7 +45,7 @@ RecordInfo parse_record_info(const boost::url& url)
     RecordInfo info = {};
 
     info.channel = n / 100;
-    info.stream = n % 100;
+    info.stream = n % 100 - 1; // URL中从1开始, 内部从0开始
     cr_ensure(parse(params["start_time"], info.start));
     cr_ensure(parse(params["end_time"], info.end));
 
@@ -67,7 +67,7 @@ void show_parts(const boost::url& url)
     fmt::println("Fragment: {}", url.fragment());
 }
 
-// "hikn://admin:howell1409@10.1.0.21:8000/record/101?start_time=2024-06-14T17:07:00&end_time=2024-06-14T17:09:00";
+// "hikn://admin:howell1409@10.1.0.21:8000/record/101?start_time=2024-07-28T12:00:00&end_time=2024-07-28T12:10:00"
 
 int main(int argc, char* argv[])
 {
@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
     }
     catch (CrError& e)
     {
-        fmt::println("Error: {}",  cr::to_string(e));
+        fmt::println("Error: {}", cr::to_string(e));
     }
     return 0;
 }
