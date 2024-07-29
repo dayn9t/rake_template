@@ -4,6 +4,8 @@
 
 using namespace std;
 
+// "hikn://admin:howell1409@10.1.0.21:8000/record/101?start_time=2024-07-29T12:00:00&end_time=2024-07-29T12:10:00";
+
 int main(int argc, const char* argv[])
 {
 	if (argc != 3)
