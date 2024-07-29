@@ -3,7 +3,7 @@
 host=10.1.0.21
 start=2024-07-28T11:00:00
 end=2024-07-28T11:10:00
-src_url="hikn://admin:howell1409@$host:8000/record/109?start_time=$start&end_time=$end";
+src_url="hikn://admin:howell1409@$host:8000/record/101?start_time=$start&end_time=$end";
 dst_file=a.pcm
 
 #arch=$(uname -m)

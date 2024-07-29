@@ -106,7 +106,7 @@ namespace hen
         m_handle = NET_DVR_PlayBackByTime_V40(session.id(), &param);
 
         int c = param.struIDInfo.dwChannel;
-        fmt::println("  Play: session={} channel={} stream={} handle={}", session.id(), c, info.stream, m_handle);
+        fmt::println("1  Play: session={} channel={} stream={} handle={}", session.id(), c, info.stream, m_handle);
         auto err = NET_DVR_GetLastError();
         fmt::println("  err: {}", err);
         sleep(1);
