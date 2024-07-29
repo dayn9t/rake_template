@@ -31,7 +31,7 @@ namespace hen
         RecordInfo info = {};
 
         info.channel = n / 100;
-        info.stream = n % 100;
+        info.stream = n % 100 - 1; // URL中从1开始, 内部从0开始
         cr_ensure(parse(params["start_time"], info.start));
         cr_ensure(parse(params["end_time"], info.end));
 
@@ -41,15 +41,15 @@ namespace hen
 
     void show_parts(const Url& url)
     {
-        fmt::println("Scheme: {}", url.scheme());
-        fmt::println("User: {}", url.user());
-        fmt::println("Password: {}", url.password());
-        fmt::println("Host: {}", url.host());
-        fmt::println("Port: {}", url.port());
-        fmt::println("Path: {}", url.path());
-        fmt::println("Query: {}", url.query());
+        fmt::println("    Scheme: {}", url.scheme());
+        fmt::println("    User: {}", url.user());
+        fmt::println("    Password: {}", url.password());
+        fmt::println("    Host: {}", url.host());
+        fmt::println("    Port: {}", url.port());
+        fmt::println("    Path: {}", url.path());
+        fmt::println("    Query: {}", url.query());
         //fmt::println("Params: {}", url.params());
-        fmt::println("Fragment: {}", url.fragment());
+        //fmt::println("Fragment: {}", url.fragment());
     }
 
 
@@ -60,13 +60,13 @@ namespace hen
         auto record_info = parse_record_info(url);
 
         auto version = m_sdk.version();
-        fmt::println("Version: {}", version_string(version));
+        fmt::println("    Version: {}", version_string(version));
         m_sdk.set_log(3, "/tmp/hen-app.log");
 
         m_session = std::make_unique<Session>(url.host(), url.port_number(), url.user(), url.password());
         auto d = m_session->device_info();
-        fmt::println("Device serial: {}", d.serial_number);
-        fmt::println("  disk number: {}", d.disk_num);
+        fmt::println("    Device serial: {}", d.serial_number);
+        fmt::println("    Disk number: {}", d.disk_num);
 
         const PlaybackInfo info = {
             .channel = record_info.channel,
@@ -90,7 +90,7 @@ namespace hen
         {
             this_thread::sleep_for(1s);
             audio_size = m_playback->audio_size();
-            fmt::println("Audio len: {}", audio_size);
+            fmt::println("    Audio len: {}", audio_size);
         }
         return audio_size;
     }

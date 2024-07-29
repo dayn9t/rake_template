@@ -51,7 +51,7 @@ namespace hen
     */
     void CALLBACK pay_es_callback(LONG play_handle, NET_DVR_PACKET_INFO_EX* pack_info, void* user_data)
     {
-        Playback* playback = static_cast<Playback*>(user_data);
+        auto playback = static_cast<Playback*>(user_data);
 
         static size_t count = 0;
         static size_t total = 0; // 2656551
@@ -92,7 +92,7 @@ namespace hen
         auto end = to_hik(info.end);
 #if 1
 
-        fmt::println("start_digit_channel: {}", session.start_digit_channel());
+        fmt::println("    Start_digit_channel: {}", session.start_digit_channel());
 
         NET_DVR_VOD_PARA param = {};
         param.struBeginTime = begin;
@@ -106,10 +106,7 @@ namespace hen
         m_handle = NET_DVR_PlayBackByTime_V40(session.id(), &param);
 
         int c = param.struIDInfo.dwChannel;
-        fmt::println("1  Play: session={} channel={} stream={} handle={}", session.id(), c, info.stream, m_handle);
-        auto err = NET_DVR_GetLastError();
-        fmt::println("  err: {}", err);
-        sleep(1);
+        fmt::println("    Play: session={} channel={} stream={} handle={}", session.id(), c, info.stream, m_handle);
         hik_ensure(m_handle >= 0);
 #else
         m_handle = NET_DVR_PlayBackByTime(session, info.channel, &begin, &end, 0);
@@ -129,7 +126,7 @@ namespace hen
     uint64_t Playback::total_len() const
     {
         uint64_t len = 0;
-        auto r = play_back_get(m_handle, NET_DVR_PLAYGETTOTALLEN, len);
+        auto _r = play_back_get(m_handle, NET_DVR_PLAYGETTOTALLEN, len);
         return len;
     }
 
@@ -146,7 +143,7 @@ namespace hen
 
     void Playback::start()
     {
-        fmt::println("Playback::start ...");
+        fmt::println("    Playback::start ...");
         control(NET_DVR_PLAYSTART);
 
         // 初始化时间, 防止开始就超时
@@ -156,7 +153,8 @@ namespace hen
 
     void Playback::stop()
     {
-        fmt::println("Playback::stop ...");
+        cr_ensure(this);
+        fmt::println("    Playback::stop ...");
         //control(NET_DVR_PLAYSTOP); // 传输结束调用会出错
     }
 
@@ -231,7 +229,7 @@ namespace hen
     uint32_t Playback::get(unsigned code) const
     {
         uint32_t out = 0;
-        fmt::println("GET: {} ...", code);
+        fmt::println("    GET: {} ...", code);
         auto ok = NET_DVR_PlayBackControl(m_handle, code, 0, &out);
         if (!ok)
         {
@@ -246,7 +244,7 @@ namespace hen
     uint32_t Playback::get_u64(unsigned code, uint64_t& value) const
     {
         uint32_t out = 0;
-        fmt::println("GET: {} ...", code);
+        fmt::println("    GET: {} ...", code);
         auto ok = NET_DVR_PlayBackControl(m_handle, code, 0, &out);
         if (!ok)
         {

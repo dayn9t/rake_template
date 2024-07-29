@@ -5,7 +5,7 @@
 #include <hen/net/types.hpp>
 
 /// 确保条件成功，否则抛出 CrError(code)
-#define hik_ensure(cond) cr_ensure_or(cond, NET_DVR_GetLastError());
+#define hik_ensure(cond) cr_ensure_or(cond, NET_DVR_GetLastError())
 
 namespace hen {
 

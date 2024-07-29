@@ -11,7 +11,7 @@ dst_file=a.pcm
 cd $HEN_DIR/build || exit
 make -j
 
-exe=$HEN_DIR/build/bin/hen-download
+exe=$HEN_DIR/build/bin/hen-download2
 ls -la $exe
 
 echo $exe "$src_url" $dst_file
