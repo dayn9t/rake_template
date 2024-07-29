@@ -1,13 +1,12 @@
 #include <cassert>
 #include <thread>
+#include <iostream>
 #include <unistd.h>
 #include <hen/net/playback.hpp>
-
-#include <fmt/core.h>
-
 #include "hik_util.hpp"
 #include "hen/net/session.hpp"
 
+using namespace std;
 
 namespace hen
 {
@@ -31,7 +30,7 @@ namespace hen
     template <typename T>
     uint32_t play_back_get(int handle, unsigned code, T& value)
     {
-        fmt::println("GET: {} ...", code);
+        cout << "GET: {} ..." << code << endl;
         uint32_t value_len = 0;
         auto ok = NET_DVR_PlayBackControl_V40(handle, code, nullptr, 0, &value, &value_len);
         cr_ensure(!value_len || value_len == sizeof(T));
@@ -73,7 +72,7 @@ namespace hen
         }
         else
         {/*
-            fmt::println("#{} {} {} rate:{} {}x{} flag:{} len:{}/{}",
+            cout << "#{} {} {} rate:{} {}x{} flag:{} len:{}/{}",
                          count,
                          p.dwPacketType, // 0-文件头，1-I帧，2-B帧， 3-P帧， 10-音频包， 11-私有数据
                          to_string(time),
@@ -92,7 +91,7 @@ namespace hen
         auto end = to_hik(info.end);
 #if 1
 
-        fmt::println("    Start_digit_channel: {}", session.start_digit_channel());
+        cout << "    Start_digit_channel: " << session.start_digit_channel() << endl;
 
         NET_DVR_VOD_PARA param = {};
         param.struBeginTime = begin;
@@ -106,7 +105,7 @@ namespace hen
         m_handle = NET_DVR_PlayBackByTime_V40(session.id(), &param);
 
         int c = param.struIDInfo.dwChannel;
-        fmt::println("    Play: session={} channel={} stream={} handle={}", session.id(), c, info.stream, m_handle);
+        printf("    Play: session=%d channel=%d stream=%d handle=%d\n", session.id(), c, info.stream, m_handle);
         hik_ensure(m_handle >= 0);
 #else
         m_handle = NET_DVR_PlayBackByTime(session, info.channel, &begin, &end, 0);
@@ -143,7 +142,7 @@ namespace hen
 
     void Playback::start()
     {
-        fmt::println("    Playback::start ...");
+        cout << "    Playback::start ..." << endl;
         control(NET_DVR_PLAYSTART);
 
         // 初始化时间, 防止开始就超时
@@ -154,7 +153,7 @@ namespace hen
     void Playback::stop()
     {
         cr_ensure(this);
-        fmt::println("    Playback::stop ...");
+        cout << "    Playback::stop ..." << endl;
         //control(NET_DVR_PLAYSTOP); // 传输结束调用会出错
     }
 
@@ -205,7 +204,7 @@ namespace hen
             fwrite(buffer, size, 1, m_audio_file);
             m_audio_total += size;
             m_audio_update = cr::now();
-            //fmt::println("A {} len:{}/{}", to_string(time), size, m_audio_total);
+            //cout << "A {} len:{}/{}", to_string(time), size, m_audio_total);
         }
     }
 
@@ -229,7 +228,7 @@ namespace hen
     uint32_t Playback::get(unsigned code) const
     {
         uint32_t out = 0;
-        fmt::println("    GET: {} ...", code);
+        cout << "    GET: {} ..." << code << endl;
         auto ok = NET_DVR_PlayBackControl(m_handle, code, 0, &out);
         if (!ok)
         {
@@ -244,7 +243,7 @@ namespace hen
     uint32_t Playback::get_u64(unsigned code, uint64_t& value) const
     {
         uint32_t out = 0;
-        fmt::println("    GET: {} ...", code);
+        cout << "    GET: {} ..." << code << endl;
         auto ok = NET_DVR_PlayBackControl(m_handle, code, 0, &out);
         if (!ok)
         {

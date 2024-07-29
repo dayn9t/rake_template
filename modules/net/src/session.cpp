@@ -1,13 +1,20 @@
 #include <hen/net/session.hpp>
-#include <fmt/core.h>
 #include "hik_util.hpp"
+#include <string.h>
 
 namespace hen
 {
     string version_string(uint32_t version)
     {
-        auto b = reinterpret_cast<std::byte*>(&version);
-        return fmt::format("{}.{}.{}.{}", b[3], b[2], b[1], b[0]);
+        uint32_t parts[] = {
+            version >> 24 & 0xFF,
+            version >> 16 & 0xFF,
+            version >> 8 & 0xFF,
+            version & 0xFF,
+        };
+        char buff[32] = {};
+        sprintf( buff, "%d.%d.%d.%d", parts[0], parts[1], parts[2], parts[3]);
+        return buff;
     }
 
     NetSDK::NetSDK()

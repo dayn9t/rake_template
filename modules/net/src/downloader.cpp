@@ -1,8 +1,8 @@
 #include <hen/net/downloader.hpp>
-#include <fmt/core.h>
 #include "hik_util.hpp"
 #include <boost/url.hpp>
 #include <memory>
+#include <iostream>
 #include <thread>
 
 using namespace std;
@@ -41,15 +41,15 @@ namespace hen
 
     void show_parts(const Url& url)
     {
-        fmt::println("    Scheme: {}", url.scheme());
-        fmt::println("    User: {}", url.user());
-        fmt::println("    Password: {}", url.password());
-        fmt::println("    Host: {}", url.host());
-        fmt::println("    Port: {}", url.port());
-        fmt::println("    Path: {}", url.path());
-        fmt::println("    Query: {}", url.query());
-        //fmt::println("Params: {}", url.params());
-        //fmt::println("Fragment: {}", url.fragment());
+        cout << "    Scheme: " <<  url.scheme() << endl;
+        cout << "    User: " <<  url.user() << endl;
+        cout << "    Password: " <<  url.password() << endl;
+        cout << "    Host: " <<  url.host() << endl;
+        cout << "    Port: " <<  url.port() << endl;
+        cout << "    Path: " <<  url.path() << endl;
+        cout << "    Query: " <<  url.query() << endl;
+        //cout << "Params: " <<  url.params() << endl;
+        //cout << "Fragment: " <<  url.fragment() << endl;
     }
 
 
@@ -60,13 +60,13 @@ namespace hen
         auto record_info = parse_record_info(url);
 
         auto version = m_sdk.version();
-        fmt::println("    Version: {}", version_string(version));
+        cout << "    Version: " <<  version_string(version) << endl;
         m_sdk.set_log(3, "/tmp/hen-app.log");
 
         m_session = std::make_unique<Session>(url.host(), url.port_number(), url.user(), url.password());
         auto d = m_session->device_info();
-        fmt::println("    Device serial: {}", d.serial_number);
-        fmt::println("    Disk number: {}", d.disk_num);
+        cout << "    Device serial: " <<  d.serial_number << endl;
+        cout << "    Disk number: " <<  d.disk_num << endl;
 
         const PlaybackInfo info = {
             .channel = record_info.channel,
@@ -90,7 +90,7 @@ namespace hen
         {
             this_thread::sleep_for(1s);
             audio_size = m_playback->audio_size();
-            fmt::println("    Audio len: {}", audio_size);
+            cout << "    Audio len: " <<  audio_size << endl;
         }
         return audio_size;
     }

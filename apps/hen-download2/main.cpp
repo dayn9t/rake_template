@@ -1,6 +1,7 @@
 
 #include <hen/reader/downloader.h>
-#include <fmt/format.h>
+#include <iostream>
+#include <stdio.h>
 
 using namespace std;
 
@@ -10,7 +11,7 @@ int main(int argc, const char* argv[])
 {
 	if (argc != 3)
 	{
-		fmt::println("Usage:\n\then-download <URL> <DST_FILE>\n");
+		cout << "Usage:\n\then-download <URL> <DST_FILE>\n" << endl;
 		return 2;
 	}
 
@@ -20,11 +21,11 @@ int main(int argc, const char* argv[])
 
 	auto size = hen_downloader_transfer(downloader);
 
-	fmt::println("Download size: {}", size);
+	cout << "Download size: " << size << endl;;
 
 	hen_downloader_destroy(downloader);
 
-	fmt::println("Done");
+	cout << "Done" << endl;
 
 	return 0;
 }

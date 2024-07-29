@@ -9,9 +9,6 @@ add_definitions(-DBOOST_STACKTRACE_USE_BACKTRACE)
 
 link_libraries(cr_core)
 
-find_package(fmt)
-link_libraries(fmt::fmt)
-
 #find_package(Boost COMPONENTS url log log_setup filesystem thread REQUIRED)
 find_package(Boost COMPONENTS url REQUIRED)
 find_package(Threads)

@@ -1,7 +1,8 @@
-#include <sstream>
-#include <fmt/format.h>
 #include <hen/net/downloader.hpp>
+#include <sstream>
 #include <iostream>
+#include <stdio.h>
+
 
 using namespace hen;
 using namespace std;
@@ -10,7 +11,7 @@ int main(int argc, char* argv[])
 {
     if (argc != 3)
     {
-        fmt::println("Usage:\n\then-download <URL> <DST_FILE>\n");
+        cout << "Usage:\n\then-download <URL> <DST_FILE>\n" << endl;
         return 2;
     }
 
@@ -18,11 +19,11 @@ int main(int argc, char* argv[])
     {
         Downloader downloader(argv[1], argv[2]);
         auto size = downloader.transfer();
-        std::cout << "    Download size: " << size << std::endl;
+        cout << "    Download size: " << size << std::endl;
     }
     catch (CrError& e)
     {
-        fmt::println("Error: {}", cr::to_string(e));
+        cout << "Error: " << cr::to_string(e) << endl;
     }
     return 0;
 }
