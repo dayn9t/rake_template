@@ -2,7 +2,7 @@
 
 arch=$(uname -m)
 cd ../cmake-build-release || exit
-make -j
+#cmake build
 src=bin/hen-download
 dst=/opt/howell/iap/current/hen/bin/"$arch"
 
