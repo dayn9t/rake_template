@@ -12,5 +12,5 @@ echo -e "\n\033[32m更新到: $dst \033[0m\n"
 
 ls -lh "$dst"
 
-echo -e "\n  cd $dst && rput.sh ifly\n"
+echo -e "\n  cd $dst && rput.sh ifly && cd -\n"
 
