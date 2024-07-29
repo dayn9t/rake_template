@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
 project(hen)
 
-#add_definitions(-DBOOST_ALL_DYN_LINK)
-set(Boost_USE_STATIC_LIBS ON)
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+
+add_definitions(-DBOOST_ALL_DYN_LINK)
+#set(Boost_USE_STATIC_LIBS ON)
 add_definitions(-DBOOST_STACKTRACE_USE_BACKTRACE)
 
 link_libraries(cr_core)
