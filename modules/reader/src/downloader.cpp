@@ -1,4 +1,6 @@
 #include "hen/net/downloader.hpp"
+
+#include <iostream>
 #include <hen/reader/downloader.h>
 
 using namespace hen;
@@ -24,8 +26,5 @@ CrError hen_downloader_destroy(HenDownloader handle)
 
 CrError hen_downloader_transfer(HenDownloader handle, U32* size)
 {
-    return cr::catch_error([&]{
-        auto ob = cr_object_cast(handle, Downloader);
-        *size = U32(ob->transfer());
-    });
+    cr_destroy_fun_body(handle, Downloader);
 }

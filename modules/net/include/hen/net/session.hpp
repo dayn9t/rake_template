@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cr/cdd/net.h>
 #include <hen/net/types.hpp>
 
 
@@ -26,7 +27,7 @@ namespace hen
     class Session
     {
     public:
-        Session(string_view host, int port, string_view user, string_view password);
+        Session(const CrEndpoint& endpoint, const CrAuthInfo& auth);
         ~Session();
 
     public:
@@ -37,10 +38,6 @@ namespace hen
         /// 获取ID
         [[nodiscard]]
         int id() const { return m_session_id; }
-
-        /// 获取起始数字通道号
-        [[nodiscard]]
-        int start_digit_channel() const;
 
     public:
     private:

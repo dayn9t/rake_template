@@ -16,16 +16,15 @@ namespace hen {
     {
         /// 序列号
         string serial_number;
-
-        /// 起始数字通道号，0表示无数字通道，比如DVR或IPC
-        int start_digit_channel;
+        /// 起始通道号，1-IPC从1开始; N-DVR从一个较大的值开始
+        U32 start_channel;
 
         /// 模拟报警输入个数
         int alarm_in_port_num;
         /// 模拟报警输出个数
         int alarm_out_port_num;
         ///硬盘个数
-        int disk_num;
+        int disk_number;
         /// 设备类型，详见下文列表
         int dvr_type;
         /// 设备模拟通道个数，数字（IP）通道最大个数为byIPChanNum + byHighDChanNum*256
@@ -42,5 +41,7 @@ namespace hen {
         int main_proto;
         /// 子码流传输协议类型：0- private，1- rtsp，2- 同时支持私有协议和rtsp协议取流（默认采用私有协议取流）
         int sub_proto;
+
+
     };
 }

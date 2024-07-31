@@ -47,8 +47,8 @@ namespace hen
         auto& d = device_info.struDeviceV30;
         DeviceInfo info = {
             .serial_number = string((const char*)d.sSerialNumber),
-            .start_digit_channel = d.byStartDChan,
-            .disk_num = d.byDiskNum,
+            .start_channel = d.byStartDChan,
+            .disk_number = d.byDiskNum,
             .main_proto = d.byMainProto,
             .sub_proto = d.bySubProto,
         };
@@ -57,20 +57,28 @@ namespace hen
 
 
 
-    Session::Session(string_view host, int port, string_view user, string_view password)
+    Session::Session(const CrEndpoint& endpoint, const CrAuthInfo& auth)
     {
         NET_DVR_USER_LOGIN_INFO login_info = {};
         NET_DVR_DEVICEINFO_V40 device_info = {};
         login_info.bUseAsynLogin = false;
-        login_info.wPort = port;
-        strncpy(login_info.sDeviceAddress, host.data(), NET_DVR_DEV_ADDRESS_MAX_LEN);
-        strncpy(login_info.sUserName, user.data(), NAME_LEN);
-        strncpy(login_info.sPassword, password.data(), NAME_LEN);
+        login_info.wPort = endpoint.port_number;
+        strncpy(login_info.sDeviceAddress, endpoint.hostname, CR_HOSTNAME_MAX_LEN);
+        strncpy(login_info.sUserName, auth.user, CR_USER_MAX_LEN);
+        strncpy(login_info.sPassword, auth.password, CR_PASSWORD_MAX_LEN);
 
         m_session_id = NET_DVR_Login_V40(&login_info, &device_info);
         hik_ensure(m_session_id >= 0);
 
         m_device_info = convert(device_info);
+
+        // FIXME: Hik数值含义不一致
+        // - IPC, 通道号从1开始, start_digit_channel 返回 0
+        // - NVR, start_digit_channel 返回返回有效值
+        if( m_device_info.start_channel == 0) // IPC 或者 DVR
+        {
+            m_device_info.start_channel = 1; // IPC 通道号从1开始
+        }
     }
 
     Session::~Session()
@@ -82,17 +90,5 @@ namespace hen
     DeviceInfo Session::device_info() const
     {
         return m_device_info;
-    }
-
-    int Session::start_digit_channel() const
-    {
-        // FIXME: Hik数值含义不一致
-        // - IPC, 通道号从1开始, start_digit_channel 返回 0
-        // - NVR, start_digit_channel 返回返回有效值
-        if( m_device_info.start_digit_channel == 0) // IPC 或者 DVR
-        {
-            return 1; // IPC 通道号从1开始
-        }
-        return m_device_info.start_digit_channel;
     }
 }
