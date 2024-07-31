@@ -1,7 +1,6 @@
-
 #include <hen/reader/downloader.h>
+#include <cr/dbc.hpp>
 #include <iostream>
-#include <stdio.h>
 
 using namespace std;
 
@@ -9,23 +8,29 @@ using namespace std;
 
 int main(int argc, const char* argv[])
 {
-	if (argc != 3)
-	{
-		cout << "Usage:\n\then-download <URL> <DST_FILE>\n" << endl;
-		return 2;
-	}
+    if (argc != 3)
+    {
+        cout << "Usage:\n\then-download <URL> <DST_FILE>\n" << endl;
+        return 2;
+    }
 
-	const char* src_url = argv[1];
-	const char* dst_file = argv[2];
-	auto downloader = hen_downloader_create(src_url, dst_file);
+    const char* src_url = argv[1];
+    const char* dst_file = argv[2];
 
-	auto size = hen_downloader_transfer(downloader);
+    HenDownloader downloader{};
 
-	cout << "Download size: " << size << endl;;
+    auto r = hen_downloader_create(src_url, dst_file, &downloader);
+    cr_ensure_ret(r);
 
-	hen_downloader_destroy(downloader);
+    U32 size = 0;
+    r = hen_downloader_transfer(downloader, &size);
+    cr_ensure_ret(r);
 
-	cout << "Done" << endl;
+    cout << "Download size: " << size << endl;;
 
-	return 0;
+    hen_downloader_destroy(downloader);
+
+    cout << "Done" << endl;
+
+    return 0;
 }

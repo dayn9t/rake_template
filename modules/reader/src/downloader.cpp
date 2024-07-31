@@ -5,22 +5,23 @@ using namespace hen;
 using namespace std;
 
 
-HenHandle hen_downloader_create(const char* src_url, const char* dst_file)
+CrError hen_downloader_create(const char* src_url, const char* dst_file, HenDownloader* handle)
 {
-    auto p = new Downloader(src_url, dst_file);
-    return HenHandle(p);
+    auto ob = new Downloader(src_url, dst_file);
+    *handle = cr_handle_cast(ob, HenDownloader);
+    return CRE_OK;
 }
 
-
-void hen_downloader_destroy(HenHandle handle)
+CrError hen_downloader_destroy(HenDownloader handle)
 {
-    auto p = reinterpret_cast<Downloader*>(handle);
-    delete p;
+    auto ob = cr_object_cast(handle, Downloader);
+    delete ob;
+    return CRE_OK;
 }
 
-
-size_t hen_downloader_transfer(HenHandle handle)
+CrError hen_downloader_transfer(HenDownloader handle, U32* size)
 {
-    auto p = reinterpret_cast<Downloader*>(handle);
-    return p->transfer();
+    auto ob = cr_object_cast(handle, Downloader);
+    *size = U32(ob->transfer());
+    return CRE_OK;
 }
