@@ -72,8 +72,8 @@ namespace hen
     {
         NET_DVR_USER_LOGIN_INFO login_info = {};
         login_info.bUseAsynLogin = false;
-        login_info.wPort = endpoint.port_number;
-        strncpy(login_info.sDeviceAddress, endpoint.hostname, CR_HOSTNAME_MAX_LEN);
+        login_info.wPort = endpoint.port;
+        strncpy(login_info.sDeviceAddress, endpoint.host, CR_HOST_MAX_LEN);
         strncpy(login_info.sUserName, auth.user, CR_USER_MAX_LEN);
         strncpy(login_info.sPassword, auth.password, CR_PASSWORD_MAX_LEN);
         return login_info;
