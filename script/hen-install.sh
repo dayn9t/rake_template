@@ -1,16 +1,24 @@
 #!/usr/bin/env bash
 
-arch=$(uname -m)
+ARCH=$(uname -m)
 cd ../cmake-build-release || exit
-#cmake build
-src=bin/hen-download
-dst=/opt/howell/iap/current/hen/bin/"$arch"
+ninja
+sudo ninja install
 
-sudo rsync -av $src "$dst"
+HEN_DIR="/opt/howell/iap/current/hen"
+LS="ls --color -lhrt"
 
+src="lib/libhen_reader.so"
+dst="$HEN_DIR/lib/$ARCH"
+rsync -av $src "$dst"
 echo -e "\n\033[32m更新到: $dst \033[0m\n"
+$LS "$dst"
 
-ls -lh "$dst"
+src="bin/hen-download2"
+dst="$HEN_DIR/bin/$ARCH"
+rsync -av $src "$dst"
+echo -e "\n\033[32m更新到: $dst \033[0m\n"
+$LS "$dst"
 
 echo -e "\n  cd $dst && rput.sh ifly && cd -\n"
 
