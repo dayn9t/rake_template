@@ -3,17 +3,18 @@
 HEN_DIR=/home/jiang/repo/hik/hen
 
 host=10.1.0.21
-start=2024-07-28T11:00:00
-end=2024-07-28T11:10:00
+today=$(date +%Y-%m-%d)
+start="$today"T10:00:00
+end="$today"T10:10:00
 src_url="hikn://admin:howell1409@$host:8000/record/101?start_time=$start&end_time=$end";
-dst_file=a.pcm
+dst_file=$HEN_DIR/$today.pcm
 
-cd $HEN_DIR/build || exit
-make -j
+cd $HEN_DIR/cmake-build-release || exit
+ninja
 
-exe=$HEN_DIR/build/bin/hen-download2
+exe=$HEN_DIR/cmake-build-release/bin/hen-download2
 ls -la $exe
 
-echo $exe "$src_url" $dst_file
+echo $exe "$src_url" "$dst_file"
 
-$exe "$src_url" $dst_file
+$exe "$src_url" "$dst_file"
