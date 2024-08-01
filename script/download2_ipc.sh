@@ -18,3 +18,5 @@ ls -la $exe
 echo $exe "$src_url" "$dst_file"
 
 $exe "$src_url" "$dst_file"
+
+echo "ffmpeg -f s16le -acodec pcm_alaw -ar 8000 -ac 1 -i $dst_file -ar 16000 $today.mp3"
