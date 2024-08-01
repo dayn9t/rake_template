@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
 ARCH=$(uname -m)
-cd ../cmake-build-release || exit
+HEN_DIR="/opt/howell/iap/current/hen"
+PROJ_DIR="/home/jiang/repo/hik/hen"
+LS="ls --color -lhrt"
+
+cd $PROJ_DIR/cmake-build-release || exit
 ninja
 sudo ninja install
-
-HEN_DIR="/opt/howell/iap/current/hen"
-LS="ls --color -lhrt"
 
 src="lib/libhen_reader.so"
 dst="$HEN_DIR/lib/$ARCH"
