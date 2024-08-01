@@ -18,9 +18,9 @@ typedef struct HenDownloaderCS
 /// 媒体片段信息
 typedef struct HenMediaSegInfoCS
 {
-    /// 通道号
+    /// 通道号, 从 1 开始
     U32 channel;
-    /// 码流类型： 0-主，1-子，2-三，3-延时摄影码流, IPC中获取录像时好像无效
+    /// 码流类型： 1-主，2-子，3-三，4-延时摄影码流, IPC中获取录像时好像无效
     U32 stream;
     /// 媒体类型位集合：1bit-视频, 2bit-音频
     U32 media_type;
@@ -30,7 +30,7 @@ typedef struct HenMediaSegInfoCS
 
 
 /// 创建下载器
-CrError hen_downloader_create(HenSession session, const HenMediaSegInfoCS* info, HenDownloader* handle);
+CrError hen_downloader_create(HenSession session, const HenMediaSegInfoCS* media_seg_info, const char* dst_file, HenDownloader* handle);
 
 /// 销毁下载器
 CrError hen_downloader_destroy(HenDownloader handle);

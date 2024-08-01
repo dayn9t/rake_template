@@ -3,6 +3,7 @@
 /// 引入核心类型, 常用于本模块头文件中
 
 #include <string>
+#include <cr/cdd/time.h>
 #include <cr/system/time.hpp>
 
 namespace hen {

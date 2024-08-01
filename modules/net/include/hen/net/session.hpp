@@ -3,9 +3,9 @@
 #include <cr/cdd/net.h>
 #include <hen/net/types.hpp>
 
-
 namespace hen
 {
+
     /// 版本转字符串
     string version_string(uint32_t version);
 
@@ -39,8 +39,11 @@ namespace hen
         [[nodiscard]]
         int id() const { return m_session_id; }
 
+        ///
+
     public:
     private:
+        NetSDK m_sdk;
         int m_session_id = 0;
         DeviceInfo m_device_info = {};
     };

@@ -26,6 +26,20 @@ namespace hen
         return time;
     }
 
+
+    NET_DVR_VOD_PARA to_hik(const MediaSegInfo& info, U32 start_channel)
+    {
+        NET_DVR_VOD_PARA param = {};
+        param.struBeginTime = to_hik(info.time_range.start);
+        param.struEndTime = to_hik(info.time_range.end);
+        param.struIDInfo.dwChannel = info.channel + start_channel - 1;
+        param.byStreamType = info.stream - 1; // FIXME: IPC中无影响
+        param.byAudioFile = 1; // FIXME: IPC中无影响, 据说: 0-不回放音频文件，1-回放音频文件，需设备支持，启动音频回放后只回放音频文件
+
+        return param;
+    }
+
+
     /// 获取回放属性信息
     template <typename T>
     uint32_t play_back_get(int handle, unsigned code, T& value)
@@ -71,41 +85,34 @@ namespace hen
             playback->append_audio(time, buffer, size);
         }
         else
-        {/*
-            cout << "#{} {} {} rate:{} {}x{} flag:{} len:{}/{}",
-                         count,
-                         p.dwPacketType, // 0-文件头，1-I帧，2-B帧， 3-P帧， 10-音频包， 11-私有数据
-                         to_string(time),
-                         static_cast<int>(p.dwFrameRate),
-                         p.wHeight, p.wWidth,
-                         p.dwFlag,
-                         p.dwPacketSize,
-                         total
-            );*/
+        {
+            /*
+                        cout << "#{} {} {} rate:{} {}x{} flag:{} len:{}/{}",
+                                     count,
+                                     p.dwPacketType, // 0-文件头，1-I帧，2-B帧， 3-P帧， 10-音频包， 11-私有数据
+                                     to_string(time),
+                                     static_cast<int>(p.dwFrameRate),
+                                     p.wHeight, p.wWidth,
+                                     p.dwFlag,
+                                     p.dwPacketSize,
+                                     total
+                        );*/
         }
     }
 
-    Playback::Playback(Session& session, PlaybackInfo info)
+    Playback::Playback(const Session& session, const MediaSegInfo& info)
     {
-        auto begin = to_hik(info.start);
-        auto end = to_hik(info.end);
 #if 1
+        auto start_channel = session.device_info().start_channel;
+        cout << "    Start_digit_channel: " << start_channel << endl;
 
-        cout << "    Start_digit_channel: " << session.start_digit_channel() << endl;
-
-        NET_DVR_VOD_PARA param = {};
-        param.struBeginTime = begin;
-        param.struEndTime = end;
-        param.struIDInfo.dwChannel = info.channel + session.start_digit_channel() - 1;
-        param.byStreamType = info.stream; // FIXME: IPC中无影响
-        param.byAudioFile = 1; // FIXME: IPC中无影响, 据说: 0-不回放音频文件，1-回放音频文件，需设备支持，启动音频回放后只回放音频文件
-
-        param.hWnd = 0;
+        NET_DVR_VOD_PARA param = to_hik(info, start_channel);
 
         m_handle = NET_DVR_PlayBackByTime_V40(session.id(), &param);
 
-        int c = param.struIDInfo.dwChannel;
-        printf("    Play: session=%d channel=%d stream=%d handle=%d\n", session.id(), c, info.stream, m_handle);
+        int channel = static_cast<int>(param.struIDInfo.dwChannel);
+        int stream = static_cast<int>(param.byStreamType);
+        printf("    Play: session=%d channel=%d stream=%d handle=%d\n", session.id(), channel, stream, m_handle);
         hik_ensure(m_handle >= 0);
 #else
         m_handle = NET_DVR_PlayBackByTime(session, info.channel, &begin, &end, 0);
