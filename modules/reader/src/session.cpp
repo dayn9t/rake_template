@@ -1,3 +1,4 @@
+#include <cstring>
 #include <hen/net/downloader.hpp>
 
 #include <iostream>
@@ -15,7 +16,7 @@ CrError hen_session_create(const CrEndpoint* endpoint, const CrAuthInfo* auth, H
         /// TODO: 提取函数 device_info
         auto d = ob->device_info();
         cout << "    Device serial: " << d.serial_number << endl;
-        cout << "    Disk number: " << d.disk_num << endl;
+        cout << "    Disk number: " << d.disk_number << endl;
         *session = cr_handle_cast(ob, HenSession);
     });
 }
@@ -25,10 +26,10 @@ CrError hen_session_destroy(HenSession session)
     cr_destroy_fun_body(session, Session);
 }
 
-HenDeviceInfo cvt(DeviceInfo info)
+HenDeviceInfo cvt(const DeviceInfo& info)
 {
     HenDeviceInfo d = {};
-    strcpy(d.serial_number, info.serial_number.c_str());
+    strncpy(d.serial_number, info.serial_number.c_str(), CR_SN_MAX_LEN);
     d.disk_number = info.disk_number;
     d.start_channel = info.start_channel;
     return d;

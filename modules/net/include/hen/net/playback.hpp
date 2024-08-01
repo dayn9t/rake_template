@@ -7,8 +7,6 @@
 namespace hen
 {
 
-    using MediaSegInfo = HenMediaSegInfo;
-
     class Session;
 
     class Playback

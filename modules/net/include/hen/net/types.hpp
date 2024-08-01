@@ -5,12 +5,15 @@
 #include <string>
 #include <cr/cdd/time.h>
 #include <cr/system/time.hpp>
+#include <hen/reader/types.h>
 
 namespace hen {
     using std::string;
     using std::string_view;
 
     using cr::DatetimeMember;
+
+    using MediaSegInfo = HenMediaSegInfo;
 
     /// 设备信息
     struct DeviceInfo

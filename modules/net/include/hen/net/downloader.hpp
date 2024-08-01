@@ -5,9 +5,7 @@
 
 namespace hen
 {
-    /// 解析录像记录
-    MediaSegInfo parse_record_info(cr::InString path, cr::StrMap& queries);
-
+    /// 下载器
     class Downloader
     {
     public:

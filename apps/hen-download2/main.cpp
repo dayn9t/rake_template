@@ -1,9 +1,8 @@
 #include <hen/reader/downloader.h>
+#include <hen/net/utils.hpp>
 #include <cr/dbc.hpp>
-#include <iostream>
 #include <cr/cdd_adt.hpp>
-
-#include <hen/net/downloader.hpp>
+#include <iostream>
 
 using namespace std;
 using namespace cr;
