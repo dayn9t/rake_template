@@ -18,13 +18,18 @@ CrError hen_downloader_create(HenSession session, const HenMediaSegInfoCS* media
 
 CrError hen_downloader_destroy(HenDownloader handle)
 {
-    return cr::catch_error([&]{
-        auto ob = cr_object_cast(handle, Downloader);
-        delete ob;
-    });
+    cr_destroy_fun_body(handle, Downloader);
 }
 
 CrError hen_downloader_transfer(HenDownloader handle, U32* size)
 {
+
+
+    return cr::catch_error([&]
+{
+    auto ob = cr_object_cast(handle, Downloader);
+    *size = ob->transfer();
+});
+
     cr_destroy_fun_body(handle, Downloader);
 }
