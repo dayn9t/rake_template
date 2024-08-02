@@ -1,5 +1,11 @@
 # 海康排他网络(Hik Exclusive Network)
 
+模块:
+
+- ce: C 语言导出动态库
+- cppw: C++ 封装静态库
+
+
 ## Rake 
 
 Rake 参见: https://github.com/dayn9t/rake.
