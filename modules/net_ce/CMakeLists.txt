@@ -9,5 +9,5 @@ foreach(dir ${CMAKE_MODULE_PATH})
     message(STATUS "          ${dir}")
 endforeach()
 
-cx_add_so_mod(hen_reader hen)
+cx_add_so_mod(hen_net_ce hen)
 add_dependencies(hen_net_ce hen_net)
