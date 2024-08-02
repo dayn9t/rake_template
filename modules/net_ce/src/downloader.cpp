@@ -4,7 +4,7 @@
 using namespace hen;
 using namespace std;
 
-CrError hen_downloader_create(HenSession session, const HenMediaSegInfoCS* media_seg_info, const char* dst_file,
+CrError hen_downloader_create(HenSession session, const HenMediaSegInfo* media_seg_info, const char* dst_file,
                               HenDownloader* handle)
 {
     return cr::catch_error([&]

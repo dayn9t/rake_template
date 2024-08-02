@@ -7,16 +7,16 @@ using namespace std;
 
 namespace hen
 {
-    string version_string(uint32_t version)
+    string version_string(U32 version)
     {
-        uint32_t parts[] = {
+        U32 parts[] = {
             version >> 24 & 0xFF,
             version >> 16 & 0xFF,
             version >> 8 & 0xFF,
             version & 0xFF,
         };
         char buff[32] = {};
-        sprintf( buff, "%d.%d.%d.%d", parts[0], parts[1], parts[2], parts[3]);
+        sprintf(buff, "%d.%d.%d.%d", parts[0], parts[1], parts[2], parts[3]);
         return buff;
     }
 
@@ -35,11 +35,13 @@ namespace hen
 
     uint32_t NetSDK::version() const
     {
+        cr_ensure(this);
         return NET_DVR_GetSDKBuildVersion();
     }
 
     void NetSDK::set_log(int level, std::string_view path)
     {
+        cr_ensure(this);
         auto r = NET_DVR_SetLogToFile(level, const_cast<char*>(path.data()), false);
         hik_ensure(r);
     }
@@ -60,7 +62,7 @@ namespace hen
         // FIXME: Hik数值含义不一致
         // - IPC, 通道号从1开始, start_digit_channel 返回 0
         // - NVR, start_digit_channel 返回返回有效值
-        if( info.start_channel == 0) // IPC 或者 DVR
+        if (info.start_channel == 0) // IPC 或者 DVR
         {
             info.start_channel = 1; // IPC 通道号从1开始
         }
@@ -73,9 +75,9 @@ namespace hen
         NET_DVR_USER_LOGIN_INFO login_info = {};
         login_info.bUseAsynLogin = false;
         login_info.wPort = endpoint.port;
-        strncpy(login_info.sDeviceAddress, endpoint.host, CR_HOST_MAX_LEN);
-        strncpy(login_info.sUserName, auth.user, CR_USER_MAX_LEN);
-        strncpy(login_info.sPassword, auth.password, CR_PASSWORD_MAX_LEN);
+        StrX(login_info.sDeviceAddress) = endpoint.host;
+        StrX(login_info.sUserName) = auth.user;
+        StrX(login_info.sPassword) = auth.password;
         return login_info;
     }
 
@@ -83,7 +85,7 @@ namespace hen
     Session::Session(const CrEndpoint& endpoint, const CrAuthInfo& auth)
     {
         auto version = m_sdk.version();
-        cout << "    Version: " <<  version_string(version) << endl;
+        cout << "    Version: " << version_string(version) << endl;
         m_sdk.set_log(3, "/tmp/hen-app.log");
 
         NET_DVR_USER_LOGIN_INFO login_info = to_hik(endpoint, auth);
@@ -94,8 +96,8 @@ namespace hen
 
         m_device_info = to_hen(device_info);
 
-        cout << "    Device serial: " <<  m_device_info.serial_number << endl;
-        cout << "    Disk number: " <<  m_device_info.disk_number << endl;
+        cout << "    Device serial: " << m_device_info.serial_number << endl;
+        cout << "    Disk number: " << m_device_info.disk_number << endl;
     }
 
     Session::~Session()

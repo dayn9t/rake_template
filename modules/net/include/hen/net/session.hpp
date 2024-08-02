@@ -5,9 +5,8 @@
 
 namespace hen
 {
-
     /// 版本转字符串
-    string version_string(uint32_t version);
+    string version_string(U32 version);
 
     /// 网络SDK环境
     class NetSDK

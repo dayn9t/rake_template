@@ -7,6 +7,7 @@
 
 using namespace hen;
 using namespace std;
+using namespace cr;
 
 
 CrError hen_session_create(const CrEndpoint* endpoint, const CrAuthInfo* auth, HenSession* session)
@@ -30,7 +31,7 @@ CrError hen_session_destroy(HenSession session)
 HenDeviceInfo cvt(const DeviceInfo& info)
 {
     HenDeviceInfo d = {};
-    strncpy(d.serial_number, info.serial_number.c_str(), CR_SN_MAX_LEN);
+    StrX(d.serial_number)= info.serial_number;
     d.disk_number = info.disk_number;
     d.start_channel = info.start_channel;
     return d;

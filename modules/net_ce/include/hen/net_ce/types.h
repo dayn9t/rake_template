@@ -6,8 +6,20 @@
 extern "C" {
 #endif
 
+/// 设备信息
+typedef struct
+{
+    /// 设备序列号
+    char serial_number[24];
+    /// 设备磁盘数量
+    U32 disk_number;
+    /// 起始通道号，1-IPC从1开始; N-DVR从一个较大的值开始
+    U32 start_channel;
+} HenDeviceInfo;
+
+
 /// 媒体片段信息
-typedef struct HenMediaSegInfoCS
+typedef struct
 {
     /// 通道号, 从 1 开始
     U32 channel;

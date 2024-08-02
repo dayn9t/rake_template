@@ -1,7 +1,6 @@
 #pragma once
 
 #include "session.h"
-#include "types.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -10,8 +9,7 @@ extern "C" {
 // downloader API
 
 /// 下载器句柄
-typedef struct HenDownloaderCS
-{
+typedef struct {
     U64 ptr;
 } HenDownloader;
 
