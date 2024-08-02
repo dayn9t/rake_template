@@ -2,7 +2,7 @@
 #include <mutex>
 #include <hen/net/types.hpp>
 
-#include <hen/reader/downloader.h>
+#include <../../../../reader/include/hen/net_ce>
 
 namespace hen
 {

@@ -1,4 +1,4 @@
-#include <hen/reader/downloader.h>
+#include <../../modules/reader/include/hen/net_ce>
 #include <hen/net/utils.hpp>
 #include <cr/dbc.hpp>
 #include <cr/cdd_adt.hpp>

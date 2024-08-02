@@ -5,7 +5,7 @@
 #include <string>
 #include <cr/cdd/time.h>
 #include <cr/system/time.hpp>
-#include <hen/reader/types.h>
+#include <../../../../reader/include/hen/net_ce>
 
 namespace hen {
     using std::string;

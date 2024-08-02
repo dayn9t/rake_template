@@ -1,5 +1,5 @@
 
-#include <hen/reader/downloader.h>
+#include <../../modules/reader/include/hen/net_ce>
 #include <iostream>
 
 int main()

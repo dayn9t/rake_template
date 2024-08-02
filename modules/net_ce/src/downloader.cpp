@@ -1,7 +1,7 @@
 #include "hen/net/downloader.hpp"
 
 #include <iostream>
-#include <hen/reader/downloader.h>
+#include <../include/hen/net_ce>
 
 using namespace hen;
 using namespace std;

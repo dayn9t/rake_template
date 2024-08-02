@@ -1,6 +1,6 @@
 
 #include "test.hpp"
-#include <hen/reader/downloader.h>
+#include <../include/hen/net_ce>
 
 TEST(TypeName, net_fun1)
 {

@@ -10,4 +10,4 @@ foreach(dir ${CMAKE_MODULE_PATH})
 endforeach()
 
 cx_add_so_mod(hen_reader hen)
-add_dependencies(hen_reader hen_net)
+add_dependencies(hen_net_ce hen_net)
