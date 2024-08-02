@@ -2,9 +2,11 @@
 #include <mutex>
 #include <hen/net/types.hpp>
 
+/// 数据块之间最长间隔
+#define DATA_MAX_INTERVAL 3
+
 namespace hen
 {
-
     class Session;
 
     class Playback
@@ -44,6 +46,7 @@ namespace hen
         size_t audio_size() const;
         /// 检查传输是否结束
         bool done() const;
+
     public:
         void append_audio(DatetimeMember time, std::byte* buffer, size_t size);
 

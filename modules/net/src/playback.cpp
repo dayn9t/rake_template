@@ -88,14 +88,14 @@ namespace hen
         {
             /*
                         cout << "#{} {} {} rate:{} {}x{} flag:{} len:{}/{}",
-                                     count,
-                                     p.dwPacketType, // 0-文件头，1-I帧，2-B帧， 3-P帧， 10-音频包， 11-私有数据
-                                     to_string(time),
-                                     static_cast<int>(p.dwFrameRate),
-                                     p.wHeight, p.wWidth,
-                                     p.dwFlag,
-                                     p.dwPacketSize,
-                                     total
+                            count,
+                            p.dwPacketType, // 0-文件头，1-I帧，2-B帧， 3-P帧， 10-音频包， 11-私有数据
+                            to_string(time),
+                            static_cast<int>(p.dwFrameRate),
+                            p.wHeight, p.wWidth,
+                            p.dwFlag,
+                            p.dwPacketSize,
+                            total
                         );*/
         }
     }
@@ -118,7 +118,6 @@ namespace hen
         m_handle = NET_DVR_PlayBackByTime(session, info.channel, &begin, &end, 0);
         hik_ensure(m_handle >= 0);
 #endif
-        //auto r = NET_DVR_SetPlayDataCallBack(m_handle, fPlayDataCallBack, 1);
         auto r = NET_DVR_SetPlayBackESCallBack(m_handle, pay_es_callback, this);
         hik_ensure(r);
     }
@@ -199,7 +198,7 @@ namespace hen
         Lock lock(m_audio_mutex);
 
         auto d = cr::now() - m_audio_update;
-        return d > cr::Seconds(5);
+        return d > Seconds(DATA_MAX_INTERVAL);
     }
 
     // 使用该这个时间
@@ -283,7 +282,6 @@ namespace hen
         // struStopTime.dwMinute	= 0;
         // struStopTime.dwSecond	= 0;
 
-
         //int lFindHandle = NET_DVR_FindFile(lUserID, 1, 0xff, &struStartTime, &struStopTime);
 
         NET_DVR_FILECOND_V50 m_struFileCondV50 = {};
@@ -304,7 +302,6 @@ namespace hen
         m_struFileCondV50.struStopTime.byMinute = 59;
         m_struFileCondV50.struStopTime.bySecond = 59;
         int lFindHandle = NET_DVR_FindFile_V50(lUserID, &m_struFileCondV50);
-
 
         if (lFindHandle < 0)
         {
