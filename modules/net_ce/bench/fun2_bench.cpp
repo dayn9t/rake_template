@@ -1,4 +1,3 @@
-#include <../include/hen/net_ce>
 #include "bench.hpp"
 
 int fun2_bench(int argc, const char *argv[])

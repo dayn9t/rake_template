@@ -1,6 +1,5 @@
 
 #include "test.hpp"
-#include <../include/hen/net_ce>
 
 TEST(TypeName, net_fun1)
 {
