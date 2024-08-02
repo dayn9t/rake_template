@@ -3,9 +3,8 @@
 /// 引入核心类型, 常用于本模块头文件中
 
 #include <string>
-#include <cr/cdd/time.h>
 #include <cr/system/time.hpp>
-#include <../../../../reader/include/hen/net_ce>
+#include <hen/net_ce/types.h>
 
 namespace hen {
     using std::string;

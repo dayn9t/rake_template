@@ -1,8 +1,9 @@
+#include <hen/net_ce/session.h>
+
 #include <cstring>
 #include <hen/net/downloader.hpp>
 
 #include <iostream>
-#include <../include/hen/net_ce>
 
 using namespace hen;
 using namespace std;

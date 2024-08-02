@@ -2,8 +2,6 @@
 #include <mutex>
 #include <hen/net/types.hpp>
 
-#include <../../../../reader/include/hen/net_ce>
-
 namespace hen
 {
 
