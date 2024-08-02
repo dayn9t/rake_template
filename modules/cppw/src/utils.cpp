@@ -1,7 +1,6 @@
-#include <hen/net/downloader.hpp>
+#include <hen/cppw/types.hpp>
 #include "hik_util.hpp"
 #include <boost/url.hpp>
-#include <memory>
 #include <iostream>
 #include <thread>
 

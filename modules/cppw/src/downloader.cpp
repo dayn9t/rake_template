@@ -1,5 +1,7 @@
-#include <hen/net/downloader.hpp>
+#include <hen/cppw/downloader.hpp>
+
 #include "hik_util.hpp"
+
 #include <boost/url.hpp>
 #include <memory>
 #include <iostream>
@@ -9,7 +11,6 @@ using namespace std;
 
 namespace hen
 {
-
     /// 字符串解析成时间
     CrTimePoint parse_time(InString str)
     {
@@ -51,7 +52,7 @@ namespace hen
         {
             this_thread::sleep_for(1s);
             audio_size = m_playback.audio_size();
-            cout << "    Audio len: " <<  audio_size << endl;
+            cout << "    Audio len: " << audio_size << endl;
         }
         return audio_size;
     }

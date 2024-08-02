@@ -4,7 +4,7 @@
 
 #include <string>
 #include <cr/system/time.hpp>
-#include <hen/net_ce/types.h>
+#include <hen/ce/types.h>
 
 namespace hen {
     using std::string;

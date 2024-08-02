@@ -1,4 +1,3 @@
-#include <hen/net/session.hpp>
 #include "bench.hpp"
 
 int fun1_bench(int argc, const char *argv[])

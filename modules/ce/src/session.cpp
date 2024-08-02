@@ -1,8 +1,6 @@
-#include <hen/net_ce/session.h>
-
-#include <cstring>
-#include <hen/net/downloader.hpp>
-
+#include <hen/ce/session.h>
+#include <hen/cppw/session.hpp>
+#include <cr/cdd_adt/str_adt.hpp>
 #include <iostream>
 
 using namespace hen;
@@ -31,7 +29,7 @@ CrError hen_session_destroy(HenSession session)
 HenDeviceInfo cvt(const DeviceInfo& info)
 {
     HenDeviceInfo d = {};
-    StrX(d.serial_number)= info.serial_number;
+    StrX(d.serial_number) = info.serial_number;
     d.disk_number = info.disk_number;
     d.start_channel = info.start_channel;
     return d;

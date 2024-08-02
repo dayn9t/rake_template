@@ -1,7 +1,8 @@
 #pragma once
 
 #include <cr/cdd/net.h>
-#include <hen/net/types.hpp>
+
+#include "types.hpp"
 
 namespace hen
 {
@@ -16,7 +17,7 @@ namespace hen
         ~NetSDK();
 
     public:
-        [[nodiscard]] uint32_t version() const;
+        [[nodiscard]] U32 version() const;
 
         void set_log(int level, string_view path);
     };

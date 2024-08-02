@@ -1,5 +1,5 @@
-#include "hen/net/downloader.hpp"
-#include "hen/net_ce/downloader.h"
+#include <hen/ce/downloader.h>
+#include <hen/cppw/downloader.hpp>
 
 using namespace hen;
 using namespace std;

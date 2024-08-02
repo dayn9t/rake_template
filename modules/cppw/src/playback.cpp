@@ -1,10 +1,11 @@
+#include <hen/cppw/playback.hpp>
+#include <hen/cppw/session.hpp>
+
 #include <cassert>
 #include <thread>
 #include <iostream>
 #include <unistd.h>
-#include <hen/net/playback.hpp>
 #include "hik_util.hpp"
-#include "hen/net/session.hpp"
 
 using namespace std;
 

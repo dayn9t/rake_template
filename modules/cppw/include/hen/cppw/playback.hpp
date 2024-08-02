@@ -1,6 +1,8 @@
 #pragma once
+
+#include "types.hpp"
+
 #include <mutex>
-#include <hen/net/types.hpp>
 
 /// 数据块之间最长间隔
 #define DATA_MAX_INTERVAL 3
