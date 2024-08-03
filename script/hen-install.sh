@@ -9,7 +9,7 @@ cd $PROJ_DIR/cmake-build-release || exit
 ninja
 sudo ninja install
 
-src="lib/libhen_reader.so"
+src="lib/libhen_ce.so"
 dst="$HEN_DIR/lib/$ARCH"
 rsync -av $src "$dst"
 echo -e "\n\033[32m更新到: $dst \033[0m\n"

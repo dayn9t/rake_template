@@ -74,7 +74,6 @@ namespace hen
 
     Playback::Playback(const Session& session, const MediaSegInfo& info)
     {
-#if 1
         auto start_channel = session.device_info().start_channel;
         cout << "    Start_digit_channel: " << start_channel << endl;
 
@@ -85,11 +84,8 @@ namespace hen
         int channel = static_cast<int>(param.struIDInfo.dwChannel);
         int stream = static_cast<int>(param.byStreamType);
         printf("    Play: session=%d channel=%d stream=%d handle=%d\n", session.id(), channel, stream, m_handle);
+        printf("    Time: %s - %s\n", to_string(param.struBeginTime).c_str(), to_string(param.struEndTime).c_str());
         hik_ensure(m_handle >= 0);
-#else
-        m_handle = NET_DVR_PlayBackByTime(session, info.channel, &begin, &end, 0);
-        hik_ensure(m_handle >= 0);
-#endif
         auto r = NET_DVR_SetPlayBackESCallBack(m_handle, pay_es_callback, this);
         hik_ensure(r);
     }

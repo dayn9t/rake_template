@@ -11,9 +11,6 @@ using namespace std;
 
 namespace hen
 {
-
-
-
     NetSDK::NetSDK()
     {
         auto r = NET_DVR_Init();
@@ -38,7 +35,6 @@ namespace hen
         auto r = NET_DVR_SetLogToFile(level, const_cast<char*>(path.data()), false);
         hik_ensure(r);
     }
-
 
 
     Session::Session(const CrEndpoint& endpoint, const CrAuthInfo& auth)

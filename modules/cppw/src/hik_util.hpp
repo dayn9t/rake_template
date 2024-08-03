@@ -32,8 +32,8 @@ namespace hen
 
 
     /// 转换为海康时间
-    inline NET_DVR_TIME to_hik(const CrTimePoint& time_point);
+    NET_DVR_TIME to_hik(const CrTimePoint& time_point);
 
     /// 海康时间转字符串
-    inline string to_string(const NET_DVR_TIME& t);
+    string to_string(const NET_DVR_TIME& t);
 }
