@@ -27,7 +27,7 @@ typedef struct
     U32 stream;
     /// 媒体类型位集合：1bit-视频, 2bit-音频
     U32 media_type;
-    /// 开始时间
+    /// 时间范围
     CrTimeRange time_range;
 } HenMediaSegInfo;
 
