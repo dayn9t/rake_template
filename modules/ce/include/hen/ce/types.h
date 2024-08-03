@@ -25,7 +25,7 @@ typedef struct
     U32 channel;
     /// 码流类型： 1-主，2-子，3-三，4-延时摄影码流, IPC中获取录像时好像无效
     U32 stream;
-    /// 媒体类型位集合：1bit-视频, 2bit-音频
+    /// 媒体类型位集合：1-视频, 2-音频, 3-音视频, 4-图片?
     U32 media_type;
     /// 时间范围
     CrTimeRange time_range;
