@@ -11,18 +11,7 @@ using namespace std;
 
 namespace hen
 {
-    string version_string(U32 version)
-    {
-        U32 parts[] = {
-            version >> 24 & 0xFF,
-            version >> 16 & 0xFF,
-            version >> 8 & 0xFF,
-            version & 0xFF,
-        };
-        char buff[32] = {};
-        sprintf(buff, "%d.%d.%d.%d", parts[0], parts[1], parts[2], parts[3]);
-        return buff;
-    }
+
 
 
     NetSDK::NetSDK()
@@ -50,40 +39,6 @@ namespace hen
         hik_ensure(r);
     }
 
-
-    /// 转换设备信息类型
-    DeviceInfo to_hen(const NET_DVR_DEVICEINFO_V40& device_info)
-    {
-        auto& d = device_info.struDeviceV30;
-        DeviceInfo info = {
-            .serial_number = string((const char*)d.sSerialNumber),
-            .start_channel = d.byStartDChan,
-            .disk_number = d.byDiskNum,
-            .main_proto = d.byMainProto,
-            .sub_proto = d.bySubProto,
-        };
-
-        // FIXME: Hik数值含义不一致
-        // - IPC, 通道号从1开始, start_digit_channel 返回 0
-        // - NVR, start_digit_channel 返回返回有效值
-        if (info.start_channel == 0) // IPC 或者 DVR
-        {
-            info.start_channel = 1; // IPC 通道号从1开始
-        }
-        return info;
-    }
-
-
-    NET_DVR_USER_LOGIN_INFO to_hik(const CrEndpoint& endpoint, const CrAuthInfo& auth)
-    {
-        NET_DVR_USER_LOGIN_INFO login_info = {};
-        login_info.bUseAsynLogin = false;
-        login_info.wPort = endpoint.port;
-        StrX(login_info.sDeviceAddress) = endpoint.host;
-        StrX(login_info.sUserName) = auth.user;
-        StrX(login_info.sPassword) = auth.password;
-        return login_info;
-    }
 
 
     Session::Session(const CrEndpoint& endpoint, const CrAuthInfo& auth)

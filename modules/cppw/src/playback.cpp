@@ -12,35 +12,6 @@ using namespace std;
 namespace hen
 {
     using Lock = std::lock_guard<std::mutex>;
-
-    DatetimeMember time_of(const NET_DVR_PACKET_INFO_EX& p)
-    {
-        DatetimeMember time = {
-            static_cast<int>(p.dwYear),
-            static_cast<int>(p.dwMonth),
-            static_cast<int>(p.dwDay),
-            static_cast<int>(p.dwHour),
-            static_cast<int>(p.dwMinute),
-            p.dwSecond + p.dwMillisecond / 1000.0,
-            0
-        };
-        return time;
-    }
-
-
-    NET_DVR_VOD_PARA to_hik(const MediaSegInfo& info, U32 start_channel)
-    {
-        NET_DVR_VOD_PARA param = {};
-        param.struBeginTime = to_hik(info.time_range.start);
-        param.struEndTime = to_hik(info.time_range.end);
-        param.struIDInfo.dwChannel = info.channel + start_channel - 1;
-        param.byStreamType = info.stream - 1; // FIXME: IPC中无影响
-        param.byAudioFile = 1; // FIXME: IPC中无影响, 据说: 0-不回放音频文件，1-回放音频文件，需设备支持，启动音频回放后只回放音频文件
-
-        return param;
-    }
-
-
     /// 获取回放属性信息
     template <typename T>
     uint32_t play_back_get(int handle, unsigned code, T& value)
